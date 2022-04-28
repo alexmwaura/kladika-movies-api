@@ -5,7 +5,6 @@ import { MoviesModule } from './movies/movies.module';
 import { MovieTypeModule } from './movie-type/movie-type.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PassportModule } from '@nestjs/passport';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -20,7 +19,6 @@ import { AuthModule } from './auth/auth.module';
     MoviesModule,
     MovieTypeModule,
     AuthModule,
-    // PassportModule.register({ defaultStrategy: 'local' }),
   ],
   controllers: [AppController],
   providers: [AppService],
