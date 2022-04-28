@@ -6,19 +6,20 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { ApiBody, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
-import { Roles } from 'src/roles.decorator';
+import { AuthenticatedGuard } from 'src/auth/authenticated.guard';
 
 @Controller('movies')
 export class MoviesController {
   constructor(private readonly moviesService: MoviesService) {}
 
+  @UseGuards(AuthenticatedGuard)
   @Post()
-  @Roles('admin')
   @ApiCreatedResponse({ description: 'Add new movie' })
   @ApiBody({ type: CreateMovieDto })
   create(@Body() createMovieDto: CreateMovieDto) {
