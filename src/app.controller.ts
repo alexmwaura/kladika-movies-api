@@ -11,8 +11,8 @@ export class AppController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   @ApiBody({ type: UsersDto })
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   login(@Request() req): any {
-    console.log(req);
-    return req.user;
+    return { msg: 'Logged in!' };
   }
 }
