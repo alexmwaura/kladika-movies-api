@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MoviesModule } from './movies/movies.module';
-import { MovieTypeModule } from './movie-type/movie-type.module';
+import { ExtrasModule } from './extras/extras.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
@@ -17,7 +17,7 @@ import { AuthModule } from './auth/auth.module';
       synchronize: true,
     }),
     MoviesModule,
-    MovieTypeModule,
+    ExtrasModule,
     AuthModule,
   ],
   controllers: [AppController],

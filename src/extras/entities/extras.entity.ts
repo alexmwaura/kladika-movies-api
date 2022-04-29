@@ -1,16 +1,18 @@
 import { Movie } from 'src/movies/entities/movie.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-
-enum TypesOfMovies {
-  'Regular',
-  "Children's Movie",
-  'New Release',
-}
+import { TypesOfMovies } from 'src/enums/enums';
 
 @Entity()
-export class MovieType {
+export class Extras {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column({
+    name: 'title',
+    type: 'varchar',
+    nullable: false,
+  })
+  title: string;
 
   @Column({
     name: 'type',
@@ -18,7 +20,14 @@ export class MovieType {
     nullable: false,
     enum: TypesOfMovies,
   })
-  type: TypesOfMovies;
+  type: TypesOfMovies[];
+
+  @Column({
+    name: 'popularity',
+    type: 'real',
+    nullable: true,
+  })
+  popularity: string;
 
   @Column({ name: 'maxAge', type: 'int', nullable: false })
   maxAge: number;
@@ -26,12 +35,12 @@ export class MovieType {
   @Column({ name: 'releaseDate', type: 'timestamptz' })
   releaseDate: Date;
 
-  @Column({ name: 'movieId', type: 'uuid', nullable: false })
-  movieId: string;
+  @Column({ name: 'genreId', type: 'uuid', nullable: false })
+  genreId: string;
 
-  @ManyToOne(() => Movie, (movie) => movie.extras, {
+  @ManyToOne(() => Movie, (movie) => movie.movies, {
     eager: false,
     onDelete: 'CASCADE',
   })
-  movie: Movie;
+  genre: Movie;
 }
