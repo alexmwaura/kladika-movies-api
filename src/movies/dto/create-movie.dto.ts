@@ -1,20 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-
-enum MovieGenre {
-  Action = 'Action',
-  Drama = 'Drama',
-  Romance = 'Romance',
-  Comedy = 'Comedy',
-  Horror = 'Horror',
-}
+import { IsEnum, IsNotEmpty } from 'class-validator';
+import { MovieGenre } from 'src/enums/enums';
 
 export class CreateMovieDto {
-  @IsNotEmpty()
-  @IsString()
-  @ApiProperty({ type: String, description: 'title' })
-  title: string;
-
   @IsNotEmpty()
   @IsEnum(MovieGenre)
   @ApiProperty({
@@ -24,8 +12,4 @@ export class CreateMovieDto {
     description: 'genre',
   })
   genre: MovieGenre[];
-
-  @IsString()
-  @ApiProperty({ type: Number, description: 'popularity' })
-  popularity: string;
 }
