@@ -26,22 +26,26 @@ export class MoviesController {
     return this.moviesService.create(createMovieDto);
   }
 
+  @UseGuards(AuthenticatedGuard)
   @Get()
   @ApiOkResponse({ description: 'Fetch Movies' })
   findAll() {
     return this.moviesService.findAll();
   }
 
+  @UseGuards(AuthenticatedGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.moviesService.findOne(id);
   }
 
+  @UseGuards(AuthenticatedGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMovieDto: UpdateMovieDto) {
     return this.moviesService.update(id, updateMovieDto);
   }
 
+  @UseGuards(AuthenticatedGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.moviesService.remove(id);
