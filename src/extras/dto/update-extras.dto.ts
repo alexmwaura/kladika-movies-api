@@ -25,7 +25,7 @@ export class UpdateExtrasDto extends PartialType(CreateExtrasDto) {
   @ApiProperty({
     type: Date,
     description: 'Release Date of the movie',
-    example: 'Januar 10, 2023',
+    example: 'January 10, 2023',
   })
   releaseDate: Date;
 
