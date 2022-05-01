@@ -2,42 +2,42 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateGenreDto } from './dto/create-genre.dto';
-import { UpdateMovieDto } from './dto/update-genre.dto';
-import { Movie } from './entities/genre.entity';
+import { UpdateGenreDto } from './dto/update-genre.dto';
+import { Genre } from './entities/genre.entity';
 
 @Injectable()
 export class GenreService {
   constructor(
-    @InjectRepository(Movie)
-    private movieRepository: Repository<Movie>,
+    @InjectRepository(Genre)
+    private GenreRepository: Repository<Genre>,
   ) {}
 
-  async create(movie: CreateGenreDto): Promise<Movie> {
-    const createMovie = this.movieRepository.create(movie);
-    return this.movieRepository.save(createMovie);
+  async create(Genre: CreateGenreDto): Promise<Genre> {
+    const createGenre = this.GenreRepository.create(Genre);
+    return this.GenreRepository.save(createGenre);
   }
 
-  findAll(): Promise<Movie[]> {
-    return this.movieRepository.find({ relations: ['movies'] });
+  findAll(): Promise<Genre[]> {
+    return this.GenreRepository.find({ relations: ['Genres'] });
   }
 
   findOne(id: string) {
-    return this.movieRepository.findOne(id);
+    return this.GenreRepository.findOne(id);
   }
 
-  async update(id: string, updateMovieDto: UpdateMovieDto): Promise<Movie> {
-    const movie = await this.movieRepository.preload({
+  async update(id: string, updateGenreDto: UpdateGenreDto): Promise<Genre> {
+    const Genre = await this.GenreRepository.preload({
       id: id,
-      ...updateMovieDto,
+      ...updateGenreDto,
     });
-    if (!movie) {
-      throw new NotFoundException(`MOVIE ${id} not found`);
+    if (!Genre) {
+      throw new NotFoundException(`Genre ${id} not found`);
     }
-    return this.movieRepository.save(movie);
+    return this.GenreRepository.save(Genre);
   }
 
   async remove(id: string) {
-    const movie = await this.findOne(id);
-    return this.movieRepository.remove(movie);
+    const Genre = await this.findOne(id);
+    return this.GenreRepository.remove(Genre);
   }
 }

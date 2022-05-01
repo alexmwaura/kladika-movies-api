@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { GenreService } from './genre.service';
 import { CreateGenreDto } from './dto/create-genre.dto';
-import { UpdateMovieDto } from './dto/update-genre.dto';
+import { UpdateGenreDto } from './dto/update-genre.dto';
 import { ApiBody, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { AuthenticatedGuard } from 'src/auth/authenticated.guard';
 
@@ -60,10 +60,10 @@ export class GenreController {
   @Patch(':id')
   async update(
     @Param('id') id: string,
-    @Body() updateMovieDto: UpdateMovieDto,
+    @Body() updateGenreDto: UpdateGenreDto,
   ) {
     try {
-      const genre = await this.genreService.update(id, updateMovieDto);
+      const genre = await this.genreService.update(id, updateGenreDto);
       return genre;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);

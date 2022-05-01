@@ -1,9 +1,9 @@
-import { Extras } from 'src/extras/entities/movies.entity';
+import { Movie } from 'src/movie/entities/movies.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { MovieGenre } from 'src/enums/enums';
 
 @Entity()
-export class Movie {
+export class Genre {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -15,9 +15,9 @@ export class Movie {
   })
   genre: MovieGenre[];
 
-  @OneToMany(() => Extras, (extras) => extras.genre, {
+  @OneToMany(() => Genre, (genre) => genre.genre, {
     eager: true,
     onDelete: 'CASCADE',
   })
-  movies: Extras[];
+  movies: Movie[];
 }

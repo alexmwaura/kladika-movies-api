@@ -1,9 +1,9 @@
-import { Movie } from 'src/genre/entities/genre.entity';
+import { Genre } from 'src/genre/entities/genre.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { TypesOfMovies } from 'src/enums/enums';
 
 @Entity()
-export class Extras {
+export class Movie {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -38,7 +38,7 @@ export class Extras {
   @Column({ name: 'genreId', type: 'uuid', nullable: false })
   genreId: string;
 
-  @ManyToOne(() => Movie, (movie) => movie.movies, {
+  @ManyToOne(() => Genre, (genre) => genre.movies, {
     eager: false,
     onDelete: 'CASCADE',
   })

@@ -4,7 +4,7 @@ import { IsEnum, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { MovieGenre } from 'src/enums/enums';
 
-export class UpdateMovieDto extends PartialType(CreateGenreDto) {
+export class UpdateGenreDto extends PartialType(CreateGenreDto) {
   @IsNotEmpty()
   @IsEnum(MovieGenre)
   @ApiProperty({
