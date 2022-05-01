@@ -14,7 +14,7 @@ import { UpdateMovieDto } from './dto/update-movie.dto';
 import { ApiBody, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { AuthenticatedGuard } from 'src/auth/authenticated.guard';
 
-@Controller('movies')
+@Controller('genre')
 export class MoviesController {
   constructor(private readonly moviesService: MoviesService) {}
 
