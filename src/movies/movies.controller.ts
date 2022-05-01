@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   UseGuards,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
@@ -20,34 +22,62 @@ export class MoviesController {
 
   @UseGuards(AuthenticatedGuard)
   @Post()
-  @ApiCreatedResponse({ description: 'Add new movie' })
+  @ApiCreatedResponse({ description: 'Add movie genre' })
   @ApiBody({ type: CreateMovieDto })
-  create(@Body() createMovieDto: CreateMovieDto) {
-    return this.moviesService.create(createMovieDto);
+  async create(@Body() createMovieDto: CreateMovieDto) {
+    try {
+      const genre = await this.moviesService.create(createMovieDto);
+      return genre;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @UseGuards(AuthenticatedGuard)
   @Get()
-  @ApiOkResponse({ description: 'Fetch Movies' })
-  findAll() {
-    return this.moviesService.findAll();
+  @ApiOkResponse({ description: 'Fetch genre' })
+  async findAll() {
+    try {
+      const genres = await this.moviesService.findAll();
+      return genres;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @UseGuards(AuthenticatedGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.moviesService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    try {
+      const genre = await this.moviesService.findOne(id);
+      return genre;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @UseGuards(AuthenticatedGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMovieDto: UpdateMovieDto) {
-    return this.moviesService.update(id, updateMovieDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateMovieDto: UpdateMovieDto,
+  ) {
+    try {
+      const genre = await this.moviesService.update(id, updateMovieDto);
+      return genre;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @UseGuards(AuthenticatedGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.moviesService.remove(id);
+  async remove(@Param('id') id: string) {
+    try {
+      await this.moviesService.remove(id);
+      return HttpStatus.OK;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 }
