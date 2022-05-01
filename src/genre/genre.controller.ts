@@ -22,7 +22,7 @@ export class GenreController {
 
   @UseGuards(AuthenticatedGuard)
   @Post()
-  @ApiCreatedResponse({ description: 'Add movie genre' })
+  @ApiCreatedResponse({ description: 'Add type of genre' })
   @ApiBody({ type: CreateGenreDto })
   async create(@Body() CreateGenreDto: CreateGenreDto) {
     try {
