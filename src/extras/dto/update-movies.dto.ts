@@ -1,10 +1,10 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateExtrasDto } from './create-extras.dto';
+import { CreateMoviesDto } from './create-movies.dto';
 import { IsDate, IsEnum, IsNumber, IsString } from 'class-validator';
 import { TypesOfMovies } from 'src/enums/enums';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdateExtrasDto extends PartialType(CreateExtrasDto) {
+export class UpdateMoviesDto extends PartialType(CreateMoviesDto) {
   @IsString()
   @ApiProperty({
     type: String,

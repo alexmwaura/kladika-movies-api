@@ -1,18 +1,18 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateExtrasDto } from './dto/create-extras.dto';
-import { UpdateExtrasDto } from './dto/update-extras.dto';
-import { Extras } from './entities/extras.entity';
+import { CreateMoviesDto } from './dto/create-movies.dto';
+import { UpdateMoviesDto } from './dto/update-movies.dto';
+import { Extras } from './entities/movies.entity';
 
 @Injectable()
-export class ExtrasService {
+export class MoviesService {
   constructor(
     @InjectRepository(Extras)
     private extrasRepository: Repository<Extras>,
   ) {}
 
-  create(createExtras: CreateExtrasDto): Promise<Extras> {
+  create(createExtras: CreateMoviesDto): Promise<Extras> {
     const typeOfMovie = this.extrasRepository.create(createExtras);
     return this.extrasRepository.save(typeOfMovie);
   }
@@ -25,10 +25,10 @@ export class ExtrasService {
     return this.extrasRepository.findOne(id);
   }
 
-  async update(id: string, updateExtrasDto: UpdateExtrasDto): Promise<Extras> {
+  async update(id: string, UpdateMoviesDto: UpdateMoviesDto): Promise<Extras> {
     const extras = await this.extrasRepository.preload({
       id: id,
-      ...updateExtrasDto,
+      ...UpdateMoviesDto,
     });
     if (!extras) {
       throw new NotFoundException(`Type of Movie ${id} not found`);

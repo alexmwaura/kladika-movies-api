@@ -10,23 +10,23 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { MoviesService } from './movies.service';
-import { CreateMovieDto } from './dto/create-movie.dto';
-import { UpdateMovieDto } from './dto/update-movie.dto';
+import { GenreService } from './genre.service';
+import { CreateGenreDto } from './dto/create-genre.dto';
+import { UpdateMovieDto } from './dto/update-genre.dto';
 import { ApiBody, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { AuthenticatedGuard } from 'src/auth/authenticated.guard';
 
 @Controller('genre')
-export class MoviesController {
-  constructor(private readonly moviesService: MoviesService) {}
+export class GenreController {
+  constructor(private readonly genreService: GenreService) {}
 
   @UseGuards(AuthenticatedGuard)
   @Post()
   @ApiCreatedResponse({ description: 'Add movie genre' })
-  @ApiBody({ type: CreateMovieDto })
-  async create(@Body() createMovieDto: CreateMovieDto) {
+  @ApiBody({ type: CreateGenreDto })
+  async create(@Body() CreateGenreDto: CreateGenreDto) {
     try {
-      const genre = await this.moviesService.create(createMovieDto);
+      const genre = await this.genreService.create(CreateGenreDto);
       return genre;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -38,7 +38,7 @@ export class MoviesController {
   @ApiOkResponse({ description: 'Fetch genre' })
   async findAll() {
     try {
-      const genres = await this.moviesService.findAll();
+      const genres = await this.genreService.findAll();
       return genres;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -49,7 +49,7 @@ export class MoviesController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
-      const genre = await this.moviesService.findOne(id);
+      const genre = await this.genreService.findOne(id);
       return genre;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -63,7 +63,7 @@ export class MoviesController {
     @Body() updateMovieDto: UpdateMovieDto,
   ) {
     try {
-      const genre = await this.moviesService.update(id, updateMovieDto);
+      const genre = await this.genreService.update(id, updateMovieDto);
       return genre;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -74,7 +74,7 @@ export class MoviesController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     try {
-      await this.moviesService.remove(id);
+      await this.genreService.remove(id);
       return HttpStatus.OK;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);

@@ -8,7 +8,7 @@ import {
 import { TypesOfMovies } from 'src/enums/enums';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateExtrasDto {
+export class CreateMoviesDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty({

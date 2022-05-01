@@ -10,23 +10,23 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { ExtrasService } from './extras.service';
-import { CreateExtrasDto } from './dto/create-extras.dto';
-import { UpdateExtrasDto } from './dto/update-extras.dto';
+import { MoviesService } from './movies.service';
+import { CreateMoviesDto } from './dto/create-movies.dto';
+import { UpdateMoviesDto } from './dto/update-movies.dto';
 import { ApiBody, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { AuthenticatedGuard } from 'src/auth/authenticated.guard';
 
 @Controller('movies')
-export class ExtrasController {
-  constructor(private readonly extrasService: ExtrasService) {}
+export class MoviesController {
+  constructor(private readonly moviesService: MoviesService) {}
 
   @UseGuards(AuthenticatedGuard)
   @ApiCreatedResponse({ description: 'Add Movie information about a movie' })
-  @ApiBody({ type: CreateExtrasDto })
+  @ApiBody({ type: CreateMoviesDto })
   @Post()
-  async create(@Body() createExtrasDto: CreateExtrasDto) {
+  async create(@Body() CreateMoviesDto: CreateMoviesDto) {
     try {
-      const createMovie = await this.extrasService.create(createExtrasDto);
+      const createMovie = await this.moviesService.create(CreateMoviesDto);
       return createMovie;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -38,7 +38,7 @@ export class ExtrasController {
   @ApiOkResponse({ description: 'Fetch movies' })
   async findAll() {
     try {
-      const query = await this.extrasService.findAll().then((movies) => {
+      const query = await this.moviesService.findAll().then((movies) => {
         const moviesData = [];
         movies.map((extras) => {
           const { id, title, type, popularity, maxAge, releaseDate, genre } =
@@ -69,7 +69,7 @@ export class ExtrasController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
-      const movie = await this.extrasService.findOne(id);
+      const movie = await this.moviesService.findOne(id);
       return movie;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -77,14 +77,14 @@ export class ExtrasController {
   }
 
   @UseGuards(AuthenticatedGuard)
-  @ApiBody({ type: UpdateExtrasDto })
+  @ApiBody({ type: UpdateMoviesDto })
   @Patch(':id')
   async update(
     @Param('id') id: string,
-    @Body() updateExtrasDto: UpdateExtrasDto,
+    @Body() UpdateMoviesDto: UpdateMoviesDto,
   ) {
     try {
-      const movie = await this.extrasService.update(id, updateExtrasDto);
+      const movie = await this.moviesService.update(id, UpdateMoviesDto);
       return movie;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -95,7 +95,7 @@ export class ExtrasController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     try {
-      await this.extrasService.remove(id);
+      await this.moviesService.remove(id);
       return HttpStatus.OK;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);

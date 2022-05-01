@@ -1,4 +1,4 @@
-import { Movie } from 'src/movies/entities/movie.entity';
+import { Movie } from 'src/genre/entities/genre.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { TypesOfMovies } from 'src/enums/enums';
 

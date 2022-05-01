@@ -1,4 +1,4 @@
-import { Extras } from 'src/extras/entities/extras.entity';
+import { Extras } from 'src/extras/entities/movies.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { MovieGenre } from 'src/enums/enums';
 

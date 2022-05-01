@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MoviesModule } from './movies/movies.module';
-import { ExtrasModule } from './extras/extras.module';
+import { GenreModule } from './genre/genre.module';
+import { MoviesModule } from './extras/movies.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
@@ -16,8 +16,8 @@ import { AuthModule } from './auth/auth.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    GenreModule,
     MoviesModule,
-    ExtrasModule,
     AuthModule,
   ],
   controllers: [AppController],

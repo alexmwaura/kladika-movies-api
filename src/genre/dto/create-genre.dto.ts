@@ -1,10 +1,8 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateMovieDto } from './create-movie.dto';
-import { IsEnum, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsEnum, IsNotEmpty } from 'class-validator';
 import { MovieGenre } from 'src/enums/enums';
 
-export class UpdateMovieDto extends PartialType(CreateMovieDto) {
+export class CreateGenreDto {
   @IsNotEmpty()
   @IsEnum(MovieGenre)
   @ApiProperty({
