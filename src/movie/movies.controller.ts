@@ -9,24 +9,43 @@ import {
   UseGuards,
   HttpException,
   HttpStatus,
+  NotFoundException,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMoviesDto } from './dto/create-movies.dto';
 import { UpdateMoviesDto } from './dto/update-movies.dto';
 import { ApiBody, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { AuthenticatedGuard } from 'src/auth/authenticated.guard';
+import { GenreService } from 'src/genre/genre.service';
 
 @Controller('movies')
 export class MoviesController {
-  constructor(private readonly moviesService: MoviesService) {}
+  constructor(
+    private readonly moviesService: MoviesService,
+    private readonly genreService: GenreService,
+  ) {}
 
   @UseGuards(AuthenticatedGuard)
   @ApiCreatedResponse({ description: 'Add Movie information about a movie' })
   @ApiBody({ type: CreateMoviesDto })
   @Post()
-  async create(@Body() CreateMoviesDto: CreateMoviesDto) {
+  async create(@Body() createMoviesDto: CreateMoviesDto) {
+    const { genreId } = createMoviesDto;
+    if (genreId) {
+      try {
+        await this.genreService.findOne(genreId);
+        try {
+          const createMovie = await this.moviesService.create(createMoviesDto);
+          return createMovie;
+        } catch (error) {
+          throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+        }
+      } catch (error) {
+        throw new NotFoundException(`Genre of id: ${genreId} not found`);
+      }
+    }
     try {
-      const createMovie = await this.moviesService.create(CreateMoviesDto);
+      const createMovie = await this.moviesService.create(createMoviesDto);
       return createMovie;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);

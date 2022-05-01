@@ -1,6 +1,6 @@
 import { Movie } from 'src/movie/entities/movies.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { MovieGenre } from 'src/enums/enums';
+import { GenreEnum } from 'src/enums/enums';
 
 @Entity()
 export class Genre {
@@ -11,11 +11,11 @@ export class Genre {
     name: 'genre',
     type: 'varchar',
     nullable: false,
-    enum: MovieGenre,
+    enum: GenreEnum,
   })
-  genre: MovieGenre[];
+  genre: GenreEnum[];
 
-  @OneToMany(() => Genre, (genre) => genre.genre, {
+  @OneToMany(() => Movie, (movie) => movie.genre, {
     eager: true,
     onDelete: 'CASCADE',
   })

@@ -2,16 +2,16 @@ import { PartialType } from '@nestjs/mapped-types';
 import { CreateGenreDto } from './create-genre.dto';
 import { IsEnum, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { MovieGenre } from 'src/enums/enums';
+import { GenreEnum } from 'src/enums/enums';
 
 export class UpdateGenreDto extends PartialType(CreateGenreDto) {
   @IsNotEmpty()
-  @IsEnum(MovieGenre)
+  @IsEnum(GenreEnum)
   @ApiProperty({
-    enum: MovieGenre,
+    enum: GenreEnum,
     isArray: true,
-    example: [MovieGenre.Action, MovieGenre.Comedy],
+    example: [GenreEnum.Action, GenreEnum.Comedy],
     description: 'genre',
   })
-  genre: MovieGenre[];
+  genre: GenreEnum[];
 }

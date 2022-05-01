@@ -1,15 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNotEmpty } from 'class-validator';
-import { MovieGenre } from 'src/enums/enums';
+import { GenreEnum } from 'src/enums/enums';
 
 export class CreateGenreDto {
   @IsNotEmpty()
-  @IsEnum(MovieGenre)
+  @IsEnum(GenreEnum)
   @ApiProperty({
-    enum: MovieGenre,
+    enum: GenreEnum,
     isArray: true,
-    example: [MovieGenre.Action, MovieGenre.Comedy],
+    example: [GenreEnum.Action, GenreEnum.Comedy],
     description: 'genre',
   })
-  genre: MovieGenre[];
+  genre: GenreEnum[];
 }
