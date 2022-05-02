@@ -40,7 +40,7 @@ export class CreateMoviesDto {
   @IsNotEmpty()
   @ApiProperty({
     type: String,
-    description: 'Unique movie id',
+    description: 'Unique genre id',
     example: '44f22539-4d69-4798-b394-312d2169cc05',
   })
   genreId: string;

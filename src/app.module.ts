@@ -6,6 +6,7 @@ import { MoviesModule } from './movie/movies.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
+import { RentalModule } from './rental/rental.module';
 
 @Module({
   imports: [
@@ -16,9 +17,10 @@ import { AuthModule } from './auth/auth.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    AuthModule,
     GenreModule,
     MoviesModule,
-    AuthModule,
+    RentalModule,
   ],
   controllers: [AppController],
   providers: [AppService],

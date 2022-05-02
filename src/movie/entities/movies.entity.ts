@@ -1,6 +1,15 @@
 import { Genre } from 'src/genre/entities/genre.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { TypesOfMovies } from 'src/enums/enums';
+import { Rental } from 'src/rental/entities/rental.entity';
 
 @Entity()
 export class Movie {
@@ -43,4 +52,10 @@ export class Movie {
     onDelete: 'CASCADE',
   })
   genre: Movie;
+
+  @OneToMany(() => Rental, (rental) => rental.movie, {
+    eager: false,
+    onDelete: 'CASCADE',
+  })
+  rentals: Rental[];
 }

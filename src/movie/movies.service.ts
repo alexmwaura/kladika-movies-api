@@ -18,7 +18,7 @@ export class MoviesService {
   }
 
   findAll(): Promise<Movie[]> {
-    return this.movieRepository.find({ relations: ['genre'] });
+    return this.movieRepository.find({ relations: ['genre', 'rentals'] });
   }
 
   findOne(id: string) {

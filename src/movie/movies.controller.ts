@@ -52,17 +52,27 @@ export class MoviesController {
     }
   }
 
-  @UseGuards(AuthenticatedGuard)
+  // @UseGuards(AuthenticatedGuard)
   @Get()
   @ApiOkResponse({ description: 'Fetch movies' })
   async findAll() {
     try {
-      const query = await this.moviesService.findAll().then((movies) => {
+      const query = await this.moviesService.findAll();
+      return Promise.resolve(query).then((results) => {
         const moviesData = [];
-        movies.map((extras) => {
-          const { id, title, type, popularity, maxAge, releaseDate, genre } =
-            extras;
-          const results = {
+        results.map((data) => {
+          const {
+            id,
+            title,
+            type,
+            popularity,
+            maxAge,
+            releaseDate,
+            genre,
+            rentals,
+          } = data;
+
+          const movie = {
             id,
             title,
             type,
@@ -73,13 +83,14 @@ export class MoviesController {
               genreId: genre.id,
               genre: genre.genre,
             },
+            rentals,
           };
-          moviesData.push(results);
+          moviesData.push(movie);
         });
         return moviesData;
       });
-      return query;
     } catch (error) {
+      console.log(error);
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }

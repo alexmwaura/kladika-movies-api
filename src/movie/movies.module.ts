@@ -9,5 +9,6 @@ import { GenreModule } from 'src/genre/genre.module';
   imports: [TypeOrmModule.forFeature([Movie]), GenreModule],
   controllers: [MoviesController],
   providers: [MoviesService],
+  exports: [MoviesService],
 })
 export class MoviesModule {}
