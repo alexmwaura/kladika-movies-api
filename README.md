@@ -129,6 +129,7 @@ type of UUID
 
 ### Movie
 
+To add a movie
 - POST /api/movies
 
 ```javascript
@@ -146,8 +147,52 @@ type of UUID
 }
 ```
 
+- GET /api/movies
+response is an array of movies.
+```
+[
+  {
+    "id": "d9c53808-2236-469e-82ea-a751aa68a6f0",
+    "title": "John Wick",
+    "type": "{\"Kids\",\"NewRelease\",\"Regular\"}",
+    "popularity": 9.8,
+    "maxAge": 18,
+    "releaseDate": "2023-01-10T00:00:00.000Z",
+    "genre": {
+      "genreId": "3df7fbce-aec7-490f-aaa0-4c7b8ae84f80",
+      "genre": "{\"Action\",\"Comedy\"}"
+    },
+    "rentals": [
+      {
+        "id": "5495e482-306e-4643-9fc4-941fb38aac72",
+        "client_name": "Trevor Noah",
+        "rental_fee": 700,
+        "movieId": "d9c53808-2236-469e-82ea-a751aa68a6f0"
+      },
+      {
+        "id": "ad98add9-bc7e-4aec-9a31-eba2d91235a1",
+        "client_name": "john doe",
+        "rental_fee": 700,
+        "movieId": "d9c53808-2236-469e-82ea-a751aa68a6f0"
+      }
+    ]
+  }
+]
+```
+
+- GET /api/movies/{id}
+- PATCH /api/movies/{id}
+- DELETE /api/movies/{id}
+
+example id:
+
+```
+d9c53808-2236-469e-82ea-a751aa68a6f0
+```
+
 ### Rental
 
+To rent a movie
 - POST /api/rental
 
 ```javascript
@@ -159,6 +204,42 @@ type of UUID
 ```
 
 - GET /api/rental
+response is an arrya of rented movies
+```
+[
+  {
+    "id": "ad98add9-bc7e-4aec-9a31-eba2d91235a1",
+    "client_name": "john doe",
+    "rental_fee": 700,
+    "movieId": "d9c53808-2236-469e-82ea-a751aa68a6f0",
+    "movie": {
+      "id": "d9c53808-2236-469e-82ea-a751aa68a6f0",
+      "title": "John Wick",
+      "type": "{\"Kids\",\"NewRelease\",\"Regular\"}",
+      "popularity": 9.8,
+      "maxAge": 18,
+      "releaseDate": "2023-01-10T00:00:00.000Z",
+      "genreId": "3df7fbce-aec7-490f-aaa0-4c7b8ae84f80"
+    }
+  },
+  {
+    "id": "5495e482-306e-4643-9fc4-941fb38aac72",
+    "client_name": "Trevor Noah",
+    "rental_fee": 700,
+    "movieId": "d9c53808-2236-469e-82ea-a751aa68a6f0",
+    "movie": {
+      "id": "d9c53808-2236-469e-82ea-a751aa68a6f0",
+      "title": "John Wick",
+      "type": "{\"Kids\",\"NewRelease\",\"Regular\"}",
+      "popularity": 9.8,
+      "maxAge": 18,
+      "releaseDate": "2023-01-10T00:00:00.000Z",
+      "genreId": "3df7fbce-aec7-490f-aaa0-4c7b8ae84f80"
+    }
+  }
+]
+```
+
 - GET /api/rental/{id}
 - PATCH /api/rental/{id}
 - DELETE /api/rental/{id}
