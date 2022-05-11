@@ -58,6 +58,117 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Api Documentaion
+
+Open [https://kladika-api.herokuapp.com/api/](https://kladika-api.herokuapp.com/api/) on any browser to interact with the swagger platform and get to interact with the API
+
+endpooint: https://kladika-api.herokuapp.com/
+
+![](https://i.imgur.com/PBr3I1T.png)
+
+### Api Instructions
+
+- Login with
+  - POST /api/login
+
+```javascript
+{
+  username: admin,
+  passowrd: admin
+}
+```
+
+to maintain session that expires after several hours
+
+- - response
+
+```
+{
+  "msg": "Logged in!"
+}
+```
+
+### Genre
+
+- POST /api/genre
+
+```javascript
+  {
+  "genre": [
+    "Action",
+    "Horro"
+  ]
+}
+```
+
+-
+- response
+
+```
+{
+ "genre": [
+   "Action",
+   "Horror"
+ ],
+ "id": "b550ded3-3539-4e59-89f4-b1765dfc3a12"
+}
+```
+
+- GET /api/genre
+- GET /api/genre/{id}
+- PATCH /api/genre/{id}
+- DELETE /api/genre/{id}
+
+example id:
+
+```
+b550ded3-3539-4e59-89f4-b1765dfc3a12
+```
+
+type of UUID
+
+### Movie
+
+- POST /api/movies
+
+```javascript
+{
+"title": string,
+"maxAge": number,
+"releaseDate": Date,
+"genreId": UUID,
+"type": [
+  "Kids",
+  "NewRelease",
+  "Regular"
+],
+"popularity": number/float
+}
+```
+
+### Rental
+
+- POST /api/rental
+
+```javascript
+{
+  "rental_fee": number,
+  "client_name": "string",
+  "movieId": UUID
+}
+```
+
+- GET /api/rental
+- GET /api/rental/{id}
+- PATCH /api/rental/{id}
+- DELETE /api/rental/{id}
+
+example id:
+
+```
+ad98add9-bc7e-4aec-9a31-eba2d91235a1
+```
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
