@@ -62,11 +62,11 @@ $ npm run test:cov
 
 Open [https://kladika-api.herokuapp.com/api/](https://kladika-api.herokuapp.com/api/) on any browser to open the swagger platform and get to interact with the API
 
-endpooint: https://kladika-api.herokuapp.com/
-
 ![](https://i.imgur.com/PBr3I1T.png)
 
-### Api Instructions
+### Api Instructions and Endpoint
+
+endpoint: https://kladika-api.herokuapp.com/
 
 - Login with
   - POST /api/login
